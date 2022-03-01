@@ -1,15 +1,15 @@
 'use strict';
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.sequelize = void 0;
 require("reflect-metadata");
-var fs = require('fs');
-var path = require('path');
-var Sequelize = require('sequelize');
-var basename = path.basename(__filename);
-var env = process.env.NODE_ENV || 'development';
-var config = require('../../config/config.js')[env];
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require('../../config/config.js')[env];
 //have to use any to define its methods
-var db = {};
+const db = {};
 // let sequelize;
 // if (config.use_env_variable) {
 //   sequelize = new Sequelize(process.env[config.use_env_variable], config);
@@ -21,18 +21,18 @@ exports.sequelize = new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_
 //}
 fs
     .readdirSync(__dirname)
-    .filter(function (file) {
+    .filter(file => {
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.ts');
 })
-    .forEach(function (file) {
-    var model = require(path.join(__dirname, file))(exports.sequelize, Sequelize.DataTypes);
+    .forEach(file => {
+    const model = require(path.join(__dirname, file))(exports.sequelize, Sequelize.DataTypes);
     db[model.name] = model;
 });
-Object.keys(db).forEach(function (modelName) {
+Object.keys(db).forEach(modelName => {
     if (db[modelName].associate) {
         db[modelName].associate(db);
     }
 });
 db.sequelize = exports.sequelize;
 db.Sequelize = Sequelize;
-exports["default"] = db;
+exports.default = db;
