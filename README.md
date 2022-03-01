@@ -15,10 +15,17 @@ $ npm run start
 ### database setup
 ```
 - $psql -h localhost -U postgres
-- $CREATE USER store_user WITH PASSWORD 'password123';
+- $CREATE USER store_user WITH PASSWORD 'postgres';
 - $CREATE DATABASE store_dev;
 - $\c store_dev
 - $GRANT ALL PRIVILEGES ON DATABASE store_dev TO store_user;
+-$ \q
+```
+```
+- $CREATE USER test_user WITH PASSWORD 'postgres';
+- $CREATE DATABASE store_test;
+- $\c store_test
+- $GRANT ALL PRIVILEGES ON DATABASE store_test TO test_user;
 ```
 ### ports
 the backend port is 3000 & database port is 5432
