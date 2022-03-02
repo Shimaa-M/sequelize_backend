@@ -22,8 +22,8 @@ const store = new userStore();
          const id = Object.values(userFound)[0];
          // 2) Check if user still exists
          const currentUser = await store.show(id);
-         if (currentUser==undefined) {
-            res.status(401).send("user not found");
+         if (!currentUser) {
+          next ("user not found");
          }
          // THERE IS A LOGGED IN USER
         res.locals.user = currentUser;

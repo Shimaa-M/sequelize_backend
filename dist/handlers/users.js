@@ -34,15 +34,27 @@ const createSendToken = (user, statusCode, _req, res) => {
     });
 };
 const index = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield store.index();
-    res.json(users);
+    try {
+        const users = yield store.index();
+        res.json(users);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 });
 const show = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield store.show(parseInt(_req.params.id));
-    if (user == null) {
-        return next('user not found');
+    try {
+        const user = yield store.show(parseInt(_req.params.id));
+        if (!user) {
+            return next('user not found');
+        }
+        res.json(user);
     }
-    res.json(user);
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 });
 const create = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -64,10 +76,10 @@ const edit = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
             password: _req.body.password
         };
         const updatedUser = yield store.edit(user);
-        if (updatedUser == null) {
+        if (!updatedUser) {
             return next('user not found');
         }
-        res.json(updatedUser);
+        res.json('the user is updated sucessfully');
     }
     catch (err) {
         res.status(400);
@@ -75,16 +87,23 @@ const edit = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 const destroy = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const deleted = yield store.delete(parseInt(_req.params.id));
-    if (deleted == null) {
-        return next('user not found');
+    try {
+        const deleted = yield store.delete(parseInt(_req.params.id));
+        if (!deleted) {
+            return next('user not found');
+        }
+        res.json('the user is deleted sucessfully');
     }
-    res.json(deleted);
+    catch (err) {
+        res.status(401);
+        res.json(err);
+    }
 });
 const authenticate = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = _req.body;
     try {
         const user = yield store.authenticate(email, password);
+        console.log(user);
         if (!user) {
             res.status(401).json({ message: 'error login credintial' });
         }

@@ -21,19 +21,19 @@ describe('Test products in orders endpoint response', () => {
                 quantity: 5
             }
         ];
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.create(dataOrderProduct);
             expect(res).toBeTruthy();
         }));
     }));
     it('should get all orders included products', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.productsInOrders();
             expect(res === null || res === void 0 ? void 0 : res.length).toBe(1);
         }));
     }));
     it('should get products in certain order', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.productsInOneOrder(1);
             expect(res === null || res === void 0 ? void 0 : res.ProductId).toBe(1);
         }));

@@ -32,19 +32,19 @@ describe('Test users endpoint response', () => {
             email: "Saeed@mailsac.com",
             password: "test1234"
         };
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.edit(editUser);
             expect(res.email).toBe("Saeed@mailsac.com");
         }));
     }));
     it('should get all users', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.index();
             expect(res === null || res === void 0 ? void 0 : res.length).toBe(1);
         }));
     }));
     it('should get 1 user', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.show(1);
             expect(res === null || res === void 0 ? void 0 : res.id).toBe(1);
         }));
@@ -52,13 +52,13 @@ describe('Test users endpoint response', () => {
     it('should authenticate user', () => __awaiter(void 0, void 0, void 0, function* () {
         const email = "mariam@mailsac.com";
         const password = "test1234";
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield store.authenticate(email, password);
             expect(response).toThrowError();
         }));
     }));
     it('should delete the user', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield store.delete(2);
             expect(response).toThrowError();
         }));

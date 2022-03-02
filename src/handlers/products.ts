@@ -5,17 +5,27 @@ import { productType } from '../models/product';
 const store = new productStore();
 
 const index = async (_req: Request, res: Response):Promise<void> => {
-  const products = await store.index();
-  res.json(products);
+    try{
+        const products = await store.index();
+        res.json(products);
+    } catch(err){
+        res.status(400);
+        res.json(err);
+    }
 }
 
 const show = async (_req: Request, res: Response,next:NextFunction):Promise<void> => {
-   const product = await store.show(parseInt(_req.params.id) );
-   if(product==null)
-   {      
-    return next('product not found');
-   }
-   res.json(product);
+    try{
+        const product = await store.show(parseInt(_req.params.id) );
+        if(!product)
+        {      
+            return next('product not found');
+        }
+        res.json(product);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 }
 
 const create = async (_req: Request, res: Response):Promise<void> => {
@@ -26,36 +36,42 @@ const create = async (_req: Request, res: Response):Promise<void> => {
     } catch(err) {
         res.status(400);
         res.json(err);
-    }
-}
-
-const edit = async (_req: Request, res: Response,next:NextFunction):Promise<void> => {
-    try{
-            const product: productType ={
-                id : parseInt(_req.params.id),
-                name : _req.body.name,
-                price : parseInt(_req.body.price)
-            };
-             
-            const updatedProduct = await store.edit(product);
-            if(updatedProduct==null)
-            {      
-            return  next('product not found');
-            }
-            res.json(updatedProduct);
-        }catch(err){
-          res.status(400);
-          res.json(err);
         }
     }
 
-const destroy = async (_req: Request, res: Response,next:NextFunction):Promise<void> => {
-    const deleted = await store.delete(parseInt(_req.params.id));
-    if(deleted==null)
-    {      
-    return  next('product not found');
+const edit = async (_req: Request, res: Response,next:NextFunction):Promise<void> => {
+    try{
+        const product: productType ={
+        id : parseInt(_req.params.id),
+        name : _req.body.name,
+        price : parseInt(_req.body.price)
+        };
+             
+        const updatedProduct = await store.edit(product);
+        if(!updatedProduct)
+        {      
+        return  next('product not found');
+        }
+        res.json('the product updated sucessfully');
+    } catch(err){
+        res.status(400);
+        res.json(err);
     }
-    res.json(deleted);
+}
+
+const destroy = async (_req: Request, res: Response,next:NextFunction):Promise<void> => {
+    try{
+       
+        const deleted = await store.delete(parseInt(_req.params.id));
+        console.log(`delete ${deleted}`)
+        if(!deleted) {      
+            return  next('product not found');
+            }
+        res.json('the product deleted sucessfully');
+    } catch(err){
+        res.status(400);
+        res.json(err);
+    }
 }
 
 const productRoutes = (app: express.Application) => {

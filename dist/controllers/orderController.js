@@ -32,7 +32,7 @@ class orderStore {
     show(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const order = yield Order.findOne({ where: { id: id } });
+                const order = yield Order.findOne({ where: { Id: id } });
                 return order;
             }
             catch (err) {
@@ -55,7 +55,7 @@ class orderStore {
     edit(o) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const order = yield Order.update(o, { where: { id: o.id } });
+                const order = yield Order.update(o, { where: { Id: o.Id } });
                 return Order;
             }
             catch (err) {
@@ -67,7 +67,8 @@ class orderStore {
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const order = yield Order.destroy({ where: { id: id } });
+                const order = yield Order.destroy({ where: { Id: id } });
+                return order;
             }
             catch (err) {
                 throw new Error(`Could not delete Order ${id}. Error: ${err}`);

@@ -1,28 +1,18 @@
 'use strict';
-
-const sequelize = require("sequelize");
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Orders', {
       id: {
-        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
-        
+        primaryKey: true,
+        type: Sequelize.INTEGER
       },
       status: {
         type: Sequelize.STRING
       },
-      user_id :{
-        type: sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        references: {
-          model: 'Users',
-          key: 'id'
-        }
+      user_id: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

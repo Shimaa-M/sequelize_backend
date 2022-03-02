@@ -73,6 +73,7 @@ class userStore {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield User.destroy({ where: { id: id } });
+                return user;
             }
             catch (err) {
                 throw new Error(`Could not delete User ${id}. Error: ${err}`);
@@ -84,13 +85,13 @@ class userStore {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield User.findOne({ where: { email: email } });
-                if (result) {
+                if (!Object.keys(result).length) {
                     const user = result[0].dataValues;
                     if (bcrypt_1.default.compareSync(password + pepper, user.password)) {
                         return user;
                     }
                 }
-                return null;
+                return result;
             }
             catch (err) {
                 throw new Error(`Could not authenticate user . Error: ${err}`);

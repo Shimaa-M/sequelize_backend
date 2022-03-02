@@ -68,6 +68,8 @@ class productStore {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const product = yield Product.destroy({ where: { id: id } });
+                console.log(product);
+                return product;
             }
             catch (err) {
                 throw new Error(`Could not delete product ${id}. Error: ${err}`);

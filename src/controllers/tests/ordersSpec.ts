@@ -25,9 +25,9 @@ describe('Test orders endpoint response', () => {
         
     });
     it('should get 1 order', async () => {
-        sequelize.sync({ force: true }).then(async () => {
+        sequelize.sync({ alter: true }).then(async () => {
         const res= await store.show(1);
-        expect(res?.id).toBe(1); 
+        expect(res?.Id).toBe(1); 
         })
     });
      
@@ -42,11 +42,11 @@ describe('Test orders endpoint response', () => {
     });
     it('should update order', async () => {
         const editOrder : orderType ={
-            id: 1,
+            Id: 1,
             status: "closed",
             user_id: 1
         }
-        sequelize.sync({ force: true }).then(async () => {
+        sequelize.sync({ alter: true }).then(async () => {
         const res=await store.edit(editOrder);
         expect(res.status).toBe("Closed"); 
         })
@@ -55,13 +55,13 @@ describe('Test orders endpoint response', () => {
     
     
     it('should delete the order', async () => {
-        sequelize.sync({ force: true }).then(async() => {
+        sequelize.sync({ alter: true }).then(async() => {
         const response = await store.delete(2);
         expect(response).toThrowError(); 
         })
     });
 afterAll(() => {
-    sequelize.sync({ force: true }).then( async() => {
+    sequelize.sync({ alter: true }).then( async() => {
         await userStore_.delete(1);
        
    });

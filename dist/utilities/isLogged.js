@@ -32,8 +32,8 @@ const isLogged = (_req, res, next) => __awaiter(void 0, void 0, void 0, function
             const id = Object.values(userFound)[0];
             // 2) Check if user still exists
             const currentUser = yield store.show(id);
-            if (currentUser == undefined) {
-                res.status(401).send("user not found");
+            if (!currentUser) {
+                next("user not found");
             }
             // THERE IS A LOGGED IN USER
             res.locals.user = currentUser;

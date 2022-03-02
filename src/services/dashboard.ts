@@ -29,7 +29,7 @@ export class DashboardQueries {
   async productsInOneOrder(id:number): Promise<orderProductType|null> {
     try{
         const products_in_orders: orderProductType = await Order.findAll({ attributes :
-            ['id'],where :{id:id},
+            ['Id'],where :{Id:id},
                   include :{
                       model: db.Product ,attributes: ['name','price'] 
                   }

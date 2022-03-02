@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Product.belongsToMany(models.Order, {
                 through: 'orderProduct',
-                foreignKey: "ProductId",
+                foreignKey: 'ProductId'
             });
         }
     }

@@ -48,24 +48,25 @@ export class userStore{
     };
   }
   
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<userType> {
     try {  
         const user: userType =await User.destroy({where :{id:id}});
+        return user;
         }catch(err) { 
           throw new Error(`Could not delete User ${id}. Error: ${err}`)
     };
   }
 
-  async authenticate(email: string, password: string): Promise<userType | null> {
+  async authenticate(email: string, password: string): Promise<userType> {
     try{
         const result: userType= await User.findOne({where: {email:email}});
-        if(result) {
+        if(!Object.keys(result).length) {
             const user = result[0].dataValues;
             if (bcrypt.compareSync(password+pepper, user.password)) {
               return user;
       }
     }
-    return null;
+    return result
     }catch (err){
     throw new Error(`Could not authenticate user . Error: ${err}`)
     }

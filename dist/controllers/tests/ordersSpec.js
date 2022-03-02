@@ -34,9 +34,9 @@ describe('Test orders endpoint response', () => {
         }));
     }));
     it('should get 1 order', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.show(1);
-            expect(res === null || res === void 0 ? void 0 : res.id).toBe(1);
+            expect(res === null || res === void 0 ? void 0 : res.Id).toBe(1);
         }));
     }));
     it('should create new order', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -49,23 +49,23 @@ describe('Test orders endpoint response', () => {
     }));
     it('should update order', () => __awaiter(void 0, void 0, void 0, function* () {
         const editOrder = {
-            id: 1,
+            Id: 1,
             status: "closed",
             user_id: 1
         };
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.edit(editOrder);
             expect(res.status).toBe("Closed");
         }));
     }));
     it('should delete the order', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield store.delete(2);
             expect(response).toThrowError();
         }));
     }));
     afterAll(() => {
-        index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
             yield userStore_.delete(1);
         }));
     });

@@ -28,7 +28,7 @@ const index = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const show = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const order = yield store.show(parseInt(_req.params.id));
-        if (order == null) {
+        if (!order) {
             return next('order not found');
         }
         res.json(order);
@@ -38,10 +38,12 @@ const show = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
         res.json(err);
     }
 });
-const create = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const create = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user_id = parseInt(res.locals.user_id);
-        console.log(user_id);
+        if (user_id) {
+            return next('you are not logged in');
+        }
         const { status } = _req.body;
         const neworder = yield store.create(status, user_id);
         res.json(neworder);
@@ -55,15 +57,15 @@ const edit = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     const user_id = parseInt(res.locals.user_id);
     try {
         const order = {
-            id: parseInt(_req.params.id),
+            Id: parseInt(_req.params.id),
             status: _req.body.status,
             user_id: user_id
         };
         const updatedProduct = yield store.edit(order);
-        if (updatedProduct == null) {
+        if (!updatedProduct) {
             return next('order not found');
         }
-        res.json(updatedProduct);
+        res.json('the order has been updated successfully');
     }
     catch (err) {
         res.status(400);
@@ -73,10 +75,10 @@ const edit = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
 const destroy = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const deleted = yield store.delete(parseInt(_req.params.id));
-        if (deleted == null) {
+        if (!deleted) {
             return next('order not found');
         }
-        res.json(deleted);
+        res.json('the order has been deleted successfully');
     }
     catch (err) {
         res.status(400);

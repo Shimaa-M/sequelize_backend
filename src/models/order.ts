@@ -2,7 +2,7 @@
 
 import {Model} from 'sequelize';
 export type orderType = {
-  id: number,
+  Id: number,
   status: string,
   user_id: number
 }
@@ -13,19 +13,19 @@ module.exports = (sequelize: any, DataTypes:any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    id!: number;
+    Id!: number;
     status!: string;
     user_id!: number;
     static associate(models) {
       // define association here
       Order.belongsToMany(models.Product, {
         through : 'orderProduct',
-        foreignKey: "OrderId",});
-        Order.belongsTo(models.User);
+      foreignKey:'OrderId'});
+       Order.hasOne(models.User);
     }
   }
   Order.init({
-    id: {
+    Id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,

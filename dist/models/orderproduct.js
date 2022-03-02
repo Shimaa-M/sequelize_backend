@@ -8,13 +8,29 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     orderProduct.init({
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
+        },
         ProductId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            primaryKey: true,
+            references: {
+                model: 'Products',
+                key: 'id'
+            }
         },
         OrderId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            primaryKey: true,
+            references: {
+                model: 'Orders',
+                key: 'Id'
+            }
         },
         quantity: {
             type: DataTypes.INTEGER,

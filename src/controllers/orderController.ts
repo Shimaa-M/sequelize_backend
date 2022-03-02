@@ -14,9 +14,9 @@ export class orderStore{
     };
   }
 
-  async show(id: number): Promise<orderType|null> {
+  async show(id: number): Promise<orderType> {
     try{
-        const order : orderType= await Order.findOne({where: {id:id}});
+        const order : orderType= await Order.findOne({where: {Id:id}});
         return order;
         }catch(err) {
         throw new Error(`Could not find Order ${id}. Error: ${err}`);
@@ -34,16 +34,17 @@ export class orderStore{
   
   async edit(o: orderType): Promise<orderType> {
     try {  
-        const order : orderType= await Order.update(o,{where :{id:o.id}}); 
+        const order : orderType= await Order.update(o,{where :{Id:o.Id}}); 
         return Order;
         }catch(err) { 
         throw new Error(`Could not update the Order. Error: ${err}`);
     };
   }
   
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<orderType> {
     try {  
-        const order: orderType =await Order.destroy({where :{id:id}});  
+        const order: orderType =await Order.destroy({where :{Id:id}});  
+        return order
       }catch(err) { 
           throw new Error(`Could not delete Order ${id}. Error: ${err}`)
     };

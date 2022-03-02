@@ -1,6 +1,7 @@
 'use strict';
 import {Model} from 'sequelize';
 export type orderProductType = {
+  id: number,
   ProductId: number,
   OrderId: number,
   quantity: number
@@ -12,6 +13,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    id!:number;
      ProductId!: number;
     OrderId!: number;
     quantity!: number;
@@ -20,14 +22,30 @@ module.exports = (sequelize:any, DataTypes:any) => {
     }
   }
   orderProduct.init({
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     ProductId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'Products',
+        key: 'id'
+      }
       
     },
     OrderId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
+      references: {
+        model: 'Orders',
+        key: 'Id'
+      }
      
     },
     quantity: 

@@ -11,6 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const dashboard_1 = require("../services/dashboard");
 const dashboard = new dashboard_1.DashboardQueries();
+const inProductsInOrders = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const dataOrderProduct = [
+        {
+            ProductId: _req.body.ProductId,
+            OrderId: _req.body.OrderId,
+            quantity: _req.body.quantity
+        }
+    ];
+    const products = yield dashboard.create(dataOrderProduct);
+    res.json(products);
+});
 const productsInOrders = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const products = yield dashboard.productsInOrders();
     res.json(products);
@@ -21,6 +32,7 @@ const productsInOneOrder = (_req, res) => __awaiter(void 0, void 0, void 0, func
     res.json(products);
 });
 const dashboardRoutes = (app) => {
+    app.post('/products_in_orders', productsInOrders);
     app.get('/products_in_orders', productsInOrders);
     app.get('/order/:id/products', productsInOneOrder);
 };

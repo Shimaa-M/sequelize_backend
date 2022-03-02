@@ -47,7 +47,7 @@ class DashboardQueries {
     productsInOneOrder(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const products_in_orders = yield Order.findAll({ attributes: ['id'], where: { id: id },
+                const products_in_orders = yield Order.findAll({ attributes: ['Id'], where: { Id: id },
                     include: {
                         model: models_1.default.Product, attributes: ['name', 'price']
                     }

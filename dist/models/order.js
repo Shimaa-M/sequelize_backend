@@ -7,13 +7,13 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Order.belongsToMany(models.Product, {
                 through: 'orderProduct',
-                foreignKey: "OrderId",
+                foreignKey: 'OrderId'
             });
-            Order.belongsTo(models.User);
+            Order.hasOne(models.User);
         }
     }
     Order.init({
-        id: {
+        Id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,

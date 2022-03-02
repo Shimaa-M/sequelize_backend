@@ -42,9 +42,11 @@ export class productStore{
     };
   }
   
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<productType> {
     try {  
       const product: productType = await Product.destroy({where :{id:id}});
+      console.log(product);
+      return product
       }catch(err) { 
           throw new Error(`Could not delete product ${id}. Error: ${err}`)
     };

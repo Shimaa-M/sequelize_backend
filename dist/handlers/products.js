@@ -12,15 +12,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const productController_1 = require("../controllers/productController");
 const store = new productController_1.productStore();
 const index = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield store.index();
-    res.json(products);
+    try {
+        const products = yield store.index();
+        res.json(products);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 });
 const show = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const product = yield store.show(parseInt(_req.params.id));
-    if (product == null) {
-        return next('product not found');
+    try {
+        const product = yield store.show(parseInt(_req.params.id));
+        if (!product) {
+            return next('product not found');
+        }
+        res.json(product);
     }
-    res.json(product);
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 });
 const create = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -41,10 +53,10 @@ const edit = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
             price: parseInt(_req.body.price)
         };
         const updatedProduct = yield store.edit(product);
-        if (updatedProduct == null) {
+        if (!updatedProduct) {
             return next('product not found');
         }
-        res.json(updatedProduct);
+        res.json('the product updated sucessfully');
     }
     catch (err) {
         res.status(400);
@@ -52,11 +64,18 @@ const edit = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 const destroy = (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const deleted = yield store.delete(parseInt(_req.params.id));
-    if (deleted == null) {
-        return next('product not found');
+    try {
+        const deleted = yield store.delete(parseInt(_req.params.id));
+        console.log(`delete ${deleted}`);
+        if (!deleted) {
+            return next('product not found');
+        }
+        res.json('the product deleted sucessfully');
     }
-    res.json(deleted);
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 });
 const productRoutes = (app) => {
     app.get('/products', index);

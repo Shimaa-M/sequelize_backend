@@ -22,28 +22,28 @@ describe('Test products endpoint response', () => {
             name: "TV",
             price: 10000
         }
-        sequelize.sync({ force: true }).then(async () => {
+        sequelize.sync({ alter: true }).then(async () => {
         const res=await store.edit(editProduct);
         expect(res.name).toBe("TV"); 
         })
         
     });
     it('should get all products', async () => {
-        sequelize.sync({ force: true }).then(async() => {
+        sequelize.sync({ alter: true }).then(async() => {
         const res = await store.index();
         expect(res?.length).toBe(1); 
         })
         
     });
     it('should get 1 product', async () => {
-        sequelize.sync({ force: true }).then(async () => {
+        sequelize.sync({ alter: true }).then(async () => {
         const res= await store.show(1);
         expect(res?.id).toBe(1); 
         })
     });
     
     it('should delete the product', async () => {
-        sequelize.sync({ force: true }).then(async() => {
+        sequelize.sync({ alter: true }).then(async() => {
         const response = await store.delete(2);
         expect(response).toThrowError(); 
         })
