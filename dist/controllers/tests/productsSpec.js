@@ -30,25 +30,25 @@ describe('Test products endpoint response', () => {
             name: "TV",
             price: 10000
         };
-        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.edit(editProduct);
             expect(res.name).toBe("TV");
         }));
     }));
     it('should get all products', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.index();
             expect(res === null || res === void 0 ? void 0 : res.length).toBe(1);
         }));
     }));
     it('should get 1 product', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.show(1);
             expect(res === null || res === void 0 ? void 0 : res.id).toBe(1);
         }));
     }));
     it('should delete the product', () => __awaiter(void 0, void 0, void 0, function* () {
-        index_1.sequelize.sync({ alter: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
+        index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield store.delete(2);
             expect(response).toThrowError();
         }));

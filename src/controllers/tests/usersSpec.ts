@@ -6,12 +6,11 @@ import {sequelize} from '../../models/index';
 const store = new userStore();
 
 describe('Test users endpoint response', () => {
-       
-     const name:string= "Mariam";
-     const email:string= "mariam@mailsac.com";
-     const password:string= "test1234";
-    
+
     it('should create new user', async () => {
+        const name:string= "Mariam";
+        const email:string= "mariam@mailsac.com";
+        const password:string= "test1234";
         sequelize.sync({ force: true }).then( async() => {
         const res= await store.create(name,email,password);
         expect(res.name).toBe("Mariam"); 
@@ -40,7 +39,7 @@ describe('Test users endpoint response', () => {
     it('should get 1 user', async () => {
         sequelize.sync().then(async () => {
         const res= await store.show(1);
-        expect(res?.id).toBe(1); 
+        expect(res?.id).toEqual(1); 
         })
     });
     it('should authenticate user', async () => {
@@ -53,7 +52,7 @@ describe('Test users endpoint response', () => {
     });
     it('should delete the user', async () => {
         sequelize.sync().then(async() => {
-        const response = await store.delete(2);
+        const response = await store.delete(3);
         expect(response).toThrowError(); 
         })
     });

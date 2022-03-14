@@ -4,10 +4,10 @@
   "description": "API for store",
   "main": "server.js",
   "scripts": {
-    "sequelize": "SET NODE_ENV=test && npx sequelize-cli db:migrate --env test",
+    "sequelize": "SET NODE_ENV=test && npx sequelize-cli db:migrate --config database.js --env test",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "tsc": "tsc",
-    "test": "SET NODE_ENV=test && npx sequelize-cli db:migrate --env test && tsc && jasmine  && npx sequelize-cli db:migrate:undo:all --env test",
+    "test": "SET NODE_ENV=test && npx sequelize-cli db:migrate --config database.js --env test && tsc && jasmine  && npx sequelize-cli db:migrate:undo:all --config database.js --env test",
     "start": "npx nodemon src/server.ts"
   },
   "author": "Shimaa",

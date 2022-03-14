@@ -16,10 +16,10 @@ const userController_1 = __importDefault(require("../userController"));
 const index_1 = require("../../models/index");
 const store = new userController_1.default();
 describe('Test users endpoint response', () => {
-    const name = "Mariam";
-    const email = "mariam@mailsac.com";
-    const password = "test1234";
     it('should create new user', () => __awaiter(void 0, void 0, void 0, function* () {
+        const name = "Mariam";
+        const email = "mariam@mailsac.com";
+        const password = "test1234";
         index_1.sequelize.sync({ force: true }).then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.create(name, email, password);
             expect(res.name).toBe("Mariam");
@@ -46,7 +46,7 @@ describe('Test users endpoint response', () => {
     it('should get 1 user', () => __awaiter(void 0, void 0, void 0, function* () {
         index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield store.show(1);
-            expect(res === null || res === void 0 ? void 0 : res.id).toBe(1);
+            expect(res === null || res === void 0 ? void 0 : res.id).toEqual(1);
         }));
     }));
     it('should authenticate user', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -59,7 +59,7 @@ describe('Test users endpoint response', () => {
     }));
     it('should delete the user', () => __awaiter(void 0, void 0, void 0, function* () {
         index_1.sequelize.sync().then(() => __awaiter(void 0, void 0, void 0, function* () {
-            const response = yield store.delete(2);
+            const response = yield store.delete(3);
             expect(response).toThrowError();
         }));
     }));

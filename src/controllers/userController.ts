@@ -50,7 +50,7 @@ export class userStore{
   
   async delete(id: number): Promise<userType> {
     try {  
-        const user: userType =await User.destroy({where :{id:id}});
+        const user: userType =await User.destroy({where:{id:id}});
         return user;
         }catch(err) { 
           throw new Error(`Could not delete User ${id}. Error: ${err}`)
